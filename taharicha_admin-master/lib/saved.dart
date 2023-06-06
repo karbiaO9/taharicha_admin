@@ -6,6 +6,7 @@ import 'package:taharicha_admin/posts.dart';
 
 
 import '../../models/post.dart';
+import 'homePage.dart';
 
 
 class SavedPage extends StatelessWidget {
@@ -59,7 +60,7 @@ class SavedPage extends StatelessWidget {
                               shrinkWrap: true,
                               itemCount: posts.length,
                               itemBuilder: (BuildContext context, int index) {
-                                if(PostsScreen.admin.saved.contains(posts[index].id)){
+                                if(HomePage.admin.saved.contains(posts[index].id)){
                                 
                                                                   return PostWidget(post:posts[index],user:PostsScreen.users.firstWhere((element) => element.userId==posts[index].userId));
 

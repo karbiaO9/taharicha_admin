@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       home:const HomePage(),
       routes: {
-        "UsersScreen": (context) =>const UsersScreen(),
+        "UsersScreen": (context) => UsersScreen(),
         "ReportsScreen": (context) => ReportsScreen(),
         "PostsScreen": (context) =>const PostsScreen(),
       },

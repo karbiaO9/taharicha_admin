@@ -8,10 +8,10 @@ import 'package:taharicha_admin/widget/comment_widget.dart';
 import 'package:taharicha_admin/widget/good_widget.dart';
 
 import '../../../models/post.dart';
+import 'homePage.dart';
 import 'models/user.dart';
 
 class PostsScreen extends StatefulWidget {
- static late  LocalUser admin;
  static late List<LocalUser> users;
   static late List<Post> posts;
 
@@ -29,11 +29,7 @@ class _PostsScreenState extends State<PostsScreen> {
       .map((snapshot) =>
           snapshot.docs.map((doc) => LocalUser.fromJson(doc.data())).toList());
 
-            Stream<List<LocalUser>> readAdmin() => FirebaseFirestore.instance
-      .collection('admin')
-      .snapshots()
-      .map((snapshot) =>
-          snapshot.docs.map((doc) => LocalUser.fromJson(doc.data())).toList());
+        
 
   
   Stream<List<Post>> readPosts() => FirebaseFirestore.instance
@@ -65,17 +61,7 @@ class _PostsScreenState extends State<PostsScreen> {
         body: Container(
           child: Stack(
             children: [
-              StreamBuilder(
-                stream: readAdmin(),
-                builder: (_,snap){
-                  if(snap.hasData){
-                    print('my data ${snap.data![0]}');
-                                          PostsScreen.admin=snap.data![0];
-
-                  }
-                   return Container();
-
-              }),
+             
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -144,52 +130,52 @@ late bool saved;
  late bool liked =false;
 bool disliked =false;
 Future<void> like_btn(Post post) async {
-  List<dynamic> _likedPostes = PostsScreen.admin.likes;
-  List<dynamic> _dislikedPostes = PostsScreen.admin.dislikes;
+  List<dynamic> _likedPostes = HomePage.admin.likes;
+  List<dynamic> _dislikedPostes = HomePage.admin.dislikes;
 
 
   if(!_likedPostes.contains(post.id) && !_dislikedPostes.contains(post.id)){
     post.likes++;
-    PostsScreen.admin.likes.add(post.id);
+    HomePage.admin.likes.add(post.id);
     liked=true;
     disliked=false;
   }else if(!_likedPostes.contains(post.id) && _dislikedPostes.contains(post.id)){
       post.likes++;
-      PostsScreen.admin.likes.add(post.id);
+      HomePage.admin.likes.add(post.id);
       post.dislikes--;
-      PostsScreen.admin.dislikes.remove(post.id);
+      HomePage.admin.dislikes.remove(post.id);
       liked=true;
       disliked=false;
   }
       final docPost = FirebaseFirestore.instance.collection('posts').doc(post.id);
        await docPost.update(post.toJson());
        final docUser = FirebaseFirestore.instance.collection('admin').doc('r0vUnSZ1KpETtrodO2px');
-       await docUser.update(PostsScreen.admin.toJson());
+       await docUser.update(HomePage.admin.toJson());
 
 
 }
 Future<void> dislike_btn(Post post)async{
-  List<dynamic> _likedPostes = PostsScreen.admin.likes;
-  List<dynamic> _dislikedPostes = PostsScreen.admin.dislikes;
+  List<dynamic> _likedPostes = HomePage.admin.likes;
+  List<dynamic> _dislikedPostes = HomePage.admin.dislikes;
 
 
   if(!_likedPostes.contains(post.id) && !_dislikedPostes.contains(post.id)){
     post.dislikes++;
-    PostsScreen.admin.dislikes.add(post.id);
+    HomePage.admin.dislikes.add(post.id);
     disliked=true;
     liked=false;
   }else if(!_dislikedPostes.contains(post.id) && _likedPostes.contains(post.id)){
       post.dislikes++;
-      PostsScreen.admin.dislikes.add(post.id);
+      HomePage.admin.dislikes.add(post.id);
       post.likes--;
-      PostsScreen.admin.likes.remove(post.id);
+      HomePage.admin.likes.remove(post.id);
       disliked=true;
       liked=false;
   }
   final docPost = FirebaseFirestore.instance.collection('posts').doc(post.id);
        await docPost.update(post.toJson());
        final docUser = FirebaseFirestore.instance.collection('admin').doc('r0vUnSZ1KpETtrodO2px');
-       await docUser.update(PostsScreen.admin.toJson());
+       await docUser.update(HomePage.admin.toJson());
 }
 
     late ExpandableController contoller;
@@ -198,10 +184,10 @@ Future<void> dislike_btn(Post post)async{
 @override
   void initState() {
     contoller=ExpandableController();
-    liked=PostsScreen.admin.likes.contains(widget.post.id);
-    disliked=PostsScreen.admin.dislikes.contains(widget.post.id);
-    saved=PostsScreen.admin.saved.contains(widget.post.id);
-    reported=PostsScreen.admin.reports.contains(widget.post.id);
+    liked=HomePage.admin.likes.contains(widget.post.id);
+    disliked=HomePage.admin.dislikes.contains(widget.post.id);
+    saved=HomePage.admin.saved.contains(widget.post.id);
+    reported=HomePage.admin.reports.contains(widget.post.id);
 
     super.initState();
 
@@ -288,21 +274,22 @@ Future<void> dislike_btn(Post post)async{
                         ),
                         IconButton(
                             onPressed: ()async {
-                              if(!PostsScreen.admin.saved.contains(widget.post.id)){
+                              if(!HomePage.admin.saved.contains(widget.post.id)){
                                 setState(() {
-                                  PostsScreen.admin.saved.add(widget.post.id);
+                                  HomePage.admin.saved.add(widget.post.id);
 
                                 });
                               }else{
                                 setState(() {
-                                 PostsScreen.admin.saved.remove(widget.post.id);
+                                 HomePage.admin.saved.remove(widget.post.id);
                                 });
                                 
                               }
                               final docUser = FirebaseFirestore.instance.collection('admin').doc('r0vUnSZ1KpETtrodO2px');
-       await docUser.update({'saved':PostsScreen.admin.saved});
-       print(PostsScreen.admin.saved);
+       await docUser.update({'saved':HomePage.admin.saved});
+       print(HomePage.admin.saved);
                               setState(() {
+                              
                                 saved=!saved;
                               });
                             },
@@ -315,7 +302,6 @@ Future<void> dislike_btn(Post post)async{
                     onPressed: () {
                       _deletePost(widget.post.id);
                       setState(() {
-                        
                       });
                     },
                     icon: const Icon(Icons.delete),

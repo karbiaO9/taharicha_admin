@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../models/post.dart';
 import '../../models/user.dart';
+import '../homePage.dart';
 import '../models/comment.dart';
 import '../posts.dart';
 
@@ -49,7 +50,10 @@ class _CommentWidgetState extends State<CommentWidget> {
                       final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   final String formatted = formatter.format(now);
-              widget.post.comments.add(CommentModel(comment: editingController.text, pdp: PostsScreen.admin.pdp, date: formatted, name: PostsScreen.admin.name).toJson());
+           setState(() {
+                           widget.post.comments.add(CommentModel(comment: editingController.text, pdp: HomePage.admin.pdp, date: formatted, name: HomePage.admin.name).toJson());
+
+           });
             FirebaseFirestore.instance.collection('posts').doc(widget.post.id).update({'comments': widget.post.comments}).then((value) => editingController.clear());
                     }
 

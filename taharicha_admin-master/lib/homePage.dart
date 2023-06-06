@@ -1,8 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+import 'models/user.dart';
+
+class HomePage extends StatefulWidget {
+   static late  LocalUser admin;
+
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+      Stream<List<LocalUser>> readAdmin() => FirebaseFirestore.instance
+      .collection('admin')
+      .snapshots()
+      .map((snapshot) =>
+          snapshot.docs.map((doc) => LocalUser.fromJson(doc.data())).toList());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,15 +32,26 @@ class HomePage extends StatelessWidget {
         body: Container(
           margin: EdgeInsets.all(50),
           width: 300,
-          child: GridView.count(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            crossAxisCount: 1,
-            childAspectRatio: 2,
+          child: Column(
+      
             children: [
+               StreamBuilder(
+                stream: readAdmin(),
+                builder: (_,snap){
+                  if(snap.hasData){
+                    print('my data ${snap.data![0]}');
+                                          HomePage.admin=snap.data![0];
+
+                  }
+                   return Container();
+
+              }),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Container(
-                  margin: EdgeInsets.all(5),
+                  width: 300,
+                  height: 150,
+                  margin:const EdgeInsets.all(5),
                   child: DashboardItem(
                     title: 'Users',
                     icon: Icons.people,
@@ -39,7 +65,9 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Container(
-                  margin: EdgeInsets.all(5),
+                   width: 300,
+                  height: 150,
+                  margin:const EdgeInsets.all(5),
                   child: DashboardItem(
                     title: 'Posts',
                     icon: Icons.list_alt_sharp,
@@ -53,6 +81,8 @@ class HomePage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4),
                 child: Container(
+                   width: 300,
+                  height: 150,
                   margin: EdgeInsets.all(5),
                   child: DashboardItem(
                     title: 'Reports',

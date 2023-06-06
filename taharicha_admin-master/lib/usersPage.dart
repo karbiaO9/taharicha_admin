@@ -86,13 +86,13 @@ Widget buildUser(LocalUser user, BuildContext context) => Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         color: Colors.white,
-        height: 75,
+        height: 85,
         child: Row(
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
+             const   Padding(
+                  padding:  EdgeInsets.all(15.0),
                   child: CircleAvatar(
                     child: Icon(Icons.person),
                   ),

@@ -115,12 +115,16 @@ StreamBuilder<List<Post>>(
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
-                            onTap: (){
+                            onTap: ()async{
                               print('posts $posts');
                               Post _p=posts.firstWhere((element) => element.id==snapshot.data![index].postId);
-                             try{
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=> PostDetails(post :_p,user: users.firstWhere((element) => element.userId==_p.userId),)));
-
+                             try {
+                               String res=  await Navigator.of(context).push(MaterialPageRoute(builder: (_)=> PostDetails(post :_p,user: users.firstWhere((element) => element.userId==_p.userId),)));
+                               FirebaseFirestore.instance
+      .collection('reports')
+      .doc(snapshot.data!.firstWhere((element) => element.postId==res).id)
+      .delete();
+                              
                              }catch(e){
                               print('error');
                              }
