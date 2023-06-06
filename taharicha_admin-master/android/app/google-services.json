@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "51001186597",
+    "project_id": "tahricha-app",
+    "storage_bucket": "tahricha-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51001186597:android:9496c8c60f41a46c17e2cc",
+        "android_client_info": {
+          "package_name": "com.example.taharicha_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51001186597-j2sg36nhqhdu22g3g8nbchtovtlf6jdd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiBBZ8Uq5ZGiBIA_EhZQEPYam8GwORRAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51001186597-j2sg36nhqhdu22g3g8nbchtovtlf6jdd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "51001186597-foa5b78fe4ofr5kdamfp8ap0oi9a7aum.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tahrichaApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51001186597:android:06f021bd59622a6917e2cc",
+        "android_client_info": {
+          "package_name": "com.example.tahricha_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51001186597-j2sg36nhqhdu22g3g8nbchtovtlf6jdd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiBBZ8Uq5ZGiBIA_EhZQEPYam8GwORRAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "51001186597-j2sg36nhqhdu22g3g8nbchtovtlf6jdd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "51001186597-foa5b78fe4ofr5kdamfp8ap0oi9a7aum.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tahrichaApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
